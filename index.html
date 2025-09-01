@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoDoubleX - Iniciar Sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #00ffcc;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
+            to { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+        }
+        .button {
+            background: #00ffcc;
+            color: #1e3c72;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .button:hover {
+            background: #00ccaa;
+            transform: scale(1.1);
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        .form-group input {
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Bienvenido a CryptoDoubleX!</h1>
+        <p>¡Duplica tu inversión en solo 24 horas!</p>
+
+        <!-- Login Form -->
+        <div class="form-group">
+            <h2>Iniciar Sesión</h2>
+            <input type="email" id="email" placeholder="Correo de Google (@gmail.com)" required><br><br>
+            <input type="password" id="password" placeholder="Contraseña de Google" required><br><br>
+            <input type="text" id="referral-code" placeholder="Código de referido (obligatorio)" required><br><br>
+            <button class="button" onclick="login()">Iniciar Sesión</button>
+        </div>
+    </div>
+
+    <script>
+        // Simple hash function to generate a unique referral ID from email
+        function generateHash(email) {
+            let hash = 0;
+            for (let i = 0; i < email.length; i++) {
+                hash = ((hash << 5) - hash) + email.charCodeAt(i);
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(36).substring(0, 6);
+        }
+
+        // Pre-fill referral code from URL if present
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refCode = urlParams.get('ref');
+            if (refCode) {
+                document.getElementById('referral-code').value = refCode;
+            }
+        };
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const referralCode = document.getElementById('referral-code').value;
+
+            if (!email || !email.endsWith('@gmail.com')) {
+                alert('Por favor, ingresa un correo válido que termine en @gmail.com');
+                return;
+            }
+            if (!password) {
+                alert('La contraseña no puede estar vacía');
+                return;
+            }
+            if (!referralCode) {
+                alert('El código de referido es obligatorio');
+                return;
+            }
+
+            // Check if user already has a referral link stored
+            let userReferralHash = localStorage.getItem(`referral_${email}`);
+            if (!userReferralHash) {
+                userReferralHash = generateHash(email);
+                localStorage.setItem(`referral_${email}`, userReferralHash);
+            }
+
+            // Register the email as a referral for the referrer
+            if (referralCode !== userReferralHash) {
+                let referrals = JSON.parse(localStorage.getItem(`referrals_${referralCode}`) || '[]');
+                if (!referrals.includes(email)) {
+                    referrals.push(email);
+                    localStorage.setItem(`referrals_${referralCode}`, JSON.stringify(referrals));
+                }
+            }
+
+            // Generate referral link
+            const referralLink = `https://app-gp.github.io/cryptodoublex.github.io/?ref=${userReferralHash}`;
+
+            // Show warning to save the referral link
+            alert(`¡Sesión iniciada! Tu link de referido es: ${referralLink}\n\n⚠️ GUARDA ESTE LINK EN UN LUGAR SEGURO O HAZ UNA CAPTURA DE PANTALLA.`);
+            // Redirect to dashboard
+            window.location.href = `dashboard.html?email=${encodeURIComponent(email)}&ref=${userReferralHash}`;
+        }
+    </script>
+</body>
+  </html>
