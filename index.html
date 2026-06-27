@@ -1,147 +1,455 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoDoubleX - Iniciar Sesión</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        h1 {
-            font-size: 2.5em;
-            color: #00ffcc;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
-            to { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
-        }
-        .button {
-            background: #00ffcc;
-            color: #1e3c72;
-            padding: 15px 30px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: transform 0.3s, background 0.3s;
-        }
-        .button:hover {
-            background: #00ccaa;
-            transform: scale(1.1);
-        }
-        .form-group {
-            margin: 20px 0;
-        }
-        .form-group input {
-            padding: 10px;
-            width: 80%;
-            border-radius: 5px;
-            border: none;
-            font-size: 1em;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALEXOR — Recursos Digitales & Páginas Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red:#D10000; --red-hi:#FF1A1A; --red-dim:#7A0000;
+    --black:#080808; --surface:#111111; --card:#161616;
+    --border:#2A0000; --text:#E8E8E8; --muted:#777; --white:#FFFFFF;
+    --gold:#C9A84C; --gold-dim:#6B4F1A;
+  }
+  html { scroll-behavior: smooth; }
+  body { background:var(--black); color:var(--text); font-family:'Inter',sans-serif; font-size:16px; line-height:1.6; overflow-x:hidden; }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px);
+    pointer-events:none; z-index:9999;
+  }
+
+  /* NAV */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 5%; height:64px; background:rgba(8,8,8,0.93); border-bottom:1px solid var(--border); backdrop-filter:blur(10px); }
+  .nav-logo { font-family:'Rajdhani',sans-serif; font-size:1.6rem; font-weight:700; letter-spacing:0.15em; color:var(--white); }
+  .nav-logo span { color:var(--red); }
+  .nav-links { display:flex; gap:1.8rem; list-style:none; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--red-hi); }
+  .nav-cta { background:var(--red) !important; color:var(--white) !important; padding:0.4rem 1.1rem; border-radius:2px; font-weight:600 !important; }
+  .nav-cta:hover { background:var(--red-hi) !important; }
+  @media(max-width:768px){ .nav-links { display:none; } }
+
+  /* HERO */
+  .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:100px 5% 60px; position:relative; overflow:hidden; }
+  .hero::after { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:700px; background:radial-gradient(circle,rgba(209,0,0,0.13) 0%,transparent 70%); pointer-events:none; }
+  .hero-ring { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:580px; height:580px; border:1px solid rgba(209,0,0,0.14); border-radius:50%; animation:spin 32s linear infinite; pointer-events:none; }
+  .hero-ring::before { content:''; position:absolute; top:22px; left:22px; right:22px; bottom:22px; border:1px solid rgba(209,0,0,0.07); border-radius:50%; }
+  @keyframes spin { to { transform:translate(-50%,-50%) rotate(360deg); } }
+  .hero-eyebrow { font-family:'Rajdhani',sans-serif; font-size:0.78rem; letter-spacing:0.3em; color:var(--red); text-transform:uppercase; margin-bottom:1.2rem; position:relative; z-index:1; }
+  .hero-title { font-family:'Rajdhani',sans-serif; font-size:clamp(2.8rem,9vw,6.5rem); font-weight:700; line-height:0.95; letter-spacing:0.04em; color:var(--white); position:relative; z-index:1; margin-bottom:0.3rem; }
+  .hero-title .red { color:var(--red); }
+  .hero-sub { font-size:clamp(0.95rem,2vw,1.2rem); color:var(--muted); max-width:540px; margin:1.5rem auto 2.5rem; position:relative; z-index:1; }
+  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; position:relative; z-index:1; }
+  .btn-primary { background:var(--red); color:var(--white); text-decoration:none; padding:0.85rem 2.2rem; font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border-radius:2px; transition:background 0.2s,box-shadow 0.2s; box-shadow:0 0 24px rgba(209,0,0,0.35); }
+  .btn-primary:hover { background:var(--red-hi); box-shadow:0 0 36px rgba(255,26,26,0.5); }
+  .btn-ghost { color:var(--text); text-decoration:none; padding:0.85rem 2.2rem; font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; border-radius:2px; border:1px solid var(--border); transition:border-color 0.2s,color 0.2s; }
+  .btn-ghost:hover { border-color:var(--red); color:var(--red-hi); }
+
+  /* STATS */
+  .stats { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2rem 5%; display:flex; justify-content:center; gap:4rem; flex-wrap:wrap; }
+  .stat { text-align:center; }
+  .stat-num { font-family:'Rajdhani',sans-serif; font-size:2.2rem; font-weight:700; color:var(--red); display:block; }
+  .stat-label { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+
+  /* SECTIONS */
+  section { padding:80px 5%; }
+  .section-label { font-family:'Rajdhani',sans-serif; font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--red); margin-bottom:0.6rem; }
+  .section-title { font-family:'Rajdhani',sans-serif; font-size:clamp(1.7rem,4vw,2.7rem); font-weight:700; color:var(--white); margin-bottom:1rem; line-height:1.1; }
+  .section-desc { color:var(--muted); max-width:560px; font-size:0.93rem; margin-bottom:3rem; }
+  .divider { width:40px; height:2px; background:var(--red); margin-bottom:2rem; }
+
+  /* SERVICES */
+  #servicios { background:var(--black); }
+  .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); }
+  .service-card { background:var(--card); padding:2rem; position:relative; transition:background 0.25s; overflow:hidden; }
+  .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--red); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+  .service-card:hover { background:#1a0000; }
+  .service-card:hover::before { transform:scaleX(1); }
+  .service-card.featured { border-top:2px solid var(--gold); }
+  .service-card.featured::before { background:var(--gold); }
+  .service-icon { font-size:2rem; margin-bottom:1rem; display:block; }
+  .service-name { font-family:'Rajdhani',sans-serif; font-size:1.2rem; font-weight:700; color:var(--white); letter-spacing:0.05em; margin-bottom:0.5rem; }
+  .service-desc { font-size:0.84rem; color:var(--muted); line-height:1.6; }
+  .service-tag { display:inline-block; margin-top:1rem; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); border:1px solid var(--red-dim); padding:0.2rem 0.6rem; border-radius:2px; }
+  .service-tag.gold { color:var(--gold); border-color:var(--gold-dim); }
+  .badge-new { position:absolute; top:1rem; right:1rem; background:var(--gold); color:#000; font-family:'Rajdhani',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; padding:0.2rem 0.5rem; border-radius:2px; }
+
+  /* WEB SECTION */
+  #webs { background:var(--surface); }
+  .web-features { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; margin-bottom:3rem; }
+  .web-feature { background:var(--card); border:1px solid var(--border); padding:1.5rem; border-radius:3px; }
+  .web-feature-icon { font-size:1.5rem; margin-bottom:0.7rem; }
+  .web-feature-title { font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; color:var(--white); margin-bottom:0.3rem; }
+  .web-feature-desc { font-size:0.82rem; color:var(--muted); }
+  .web-types { display:flex; flex-wrap:wrap; gap:0.5rem; }
+  .web-type { background:rgba(209,0,0,0.08); border:1px solid var(--red-dim); color:var(--text); font-size:0.8rem; padding:0.4rem 0.9rem; border-radius:2px; font-family:'Rajdhani',sans-serif; letter-spacing:0.05em; }
+
+  /* LOYALTY CARDS */
+  #fidelidad { background:var(--black); }
+  .loyalty-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
+
+  /* Card 1 — Seguidores (red/dark) */
+  .lcard { border-radius:6px; padding:2rem; position:relative; overflow:hidden; }
+  .lcard-seg { background:linear-gradient(135deg,#1a0000 0%,#0d0d0d 100%); border:1px solid var(--red-dim); }
+  .lcard-num { background:linear-gradient(135deg,#0a0a0a 0%,#1c1c1c 100%); border:1px solid #333; }
+  .lcard-web { background:linear-gradient(135deg,#0a0a14 0%,#111120 100%); border:1px solid #1a1a40; }
+
+  .lcard-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; }
+  .lcard-brand { font-family:'Rajdhani',sans-serif; font-size:1.3rem; font-weight:700; letter-spacing:0.12em; }
+  .lcard-brand.red { color:var(--red); }
+  .lcard-brand.white { color:var(--white); }
+  .lcard-brand.blue { color:#4A90D9; }
+  .lcard-type { font-family:'Rajdhani',sans-serif; font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:0.2rem; }
+  .lcard-type.red { color:var(--red); }
+  .lcard-type.gold { color:var(--gold); }
+  .lcard-type.blue { color:#4A90D9; }
+  .lcard-service { font-family:'Rajdhani',sans-serif; font-size:1.4rem; font-weight:700; color:var(--white); }
+
+  .lcard-stamps { display:grid; grid-template-columns:repeat(5,1fr); gap:0.5rem; margin:1.2rem 0; }
+  .lstamp { aspect-ratio:1; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Rajdhani',sans-serif; font-size:0.9rem; font-weight:700; transition:all 0.2s; }
+  .lstamp-empty-red { border:1.5px dashed #3a0000; color:#3a0000; }
+  .lstamp-filled-red { border:1.5px solid var(--red); color:var(--red); background:rgba(209,0,0,0.12); box-shadow:0 0 8px rgba(209,0,0,0.25); }
+  .lstamp-empty-gold { border:1.5px dashed #4a3a1a; color:#4a3a1a; }
+  .lstamp-filled-gold { border:1.5px solid var(--gold); color:var(--gold); background:rgba(201,168,76,0.1); box-shadow:0 0 8px rgba(201,168,76,0.2); }
+  .lstamp-empty-blue { border:1.5px dashed #1a2a4a; color:#1a2a4a; }
+  .lstamp-filled-blue { border:1.5px solid #4A90D9; color:#4A90D9; background:rgba(74,144,217,0.1); box-shadow:0 0 8px rgba(74,144,217,0.2); }
+
+  .lcard-reward { padding:0.8rem 1rem; border-radius:3px; font-size:0.82rem; margin-top:0.5rem; }
+  .lcard-reward.red { background:rgba(209,0,0,0.08); border:1px solid var(--red-dim); color:var(--text); }
+  .lcard-reward.gold { background:rgba(201,168,76,0.07); border:1px solid var(--gold-dim); color:var(--text); }
+  .lcard-reward.blue { background:rgba(74,144,217,0.07); border:1px solid #1a2a4a; color:var(--text); }
+  .lcard-reward strong { font-weight:600; }
+  .lcard-reward strong.red { color:var(--red); }
+  .lcard-reward strong.gold { color:var(--gold); }
+  .lcard-reward strong.blue { color:#4A90D9; }
+
+  .lcard-footer { display:flex; justify-content:space-between; align-items:center; margin-top:1.2rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.05); font-size:0.72rem; color:var(--muted); letter-spacing:0.08em; }
+  .lcard-code-red { color:var(--red); font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.85rem; }
+  .lcard-code-gold { color:var(--gold); font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.85rem; }
+  .lcard-code-blue { color:#4A90D9; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.85rem; }
+
+  /* PROCESO */
+  #proceso { background:var(--surface); }
+  .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; max-width:900px; }
+  .step-num { font-family:'Rajdhani',sans-serif; font-size:3.5rem; font-weight:700; color:rgba(209,0,0,0.1); line-height:1; margin-bottom:-0.5rem; }
+  .step-title { font-family:'Rajdhani',sans-serif; font-size:1.1rem; font-weight:700; color:var(--white); margin-bottom:0.4rem; }
+  .step-desc { font-size:0.83rem; color:var(--muted); }
+
+  /* CONTACTO */
+  #contacto { background:var(--black); text-align:center; border-top:1px solid var(--border); }
+  #contacto .section-desc { margin-left:auto; margin-right:auto; }
+  .contact-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2rem; }
+  .btn-wa { background:#25D366; color:#fff; text-decoration:none; padding:0.85rem 2.2rem; font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; border-radius:2px; transition:opacity 0.2s; }
+  .btn-wa:hover { opacity:0.85; }
+  .btn-tg { background:#229ED9; color:#fff; text-decoration:none; padding:0.85rem 2.2rem; font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; border-radius:2px; transition:opacity 0.2s; }
+  .btn-tg:hover { opacity:0.85; }
+
+  /* FOOTER */
+  footer { background:var(--black); border-top:1px solid var(--border); padding:2rem 5%; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+  .footer-logo { font-family:'Rajdhani',sans-serif; font-size:1.3rem; font-weight:700; letter-spacing:0.15em; color:var(--white); }
+  .footer-logo span { color:var(--red); }
+  .footer-copy { font-size:0.72rem; color:var(--muted); }
+  @media(max-width:640px){ footer { flex-direction:column; text-align:center; } }
+
+  /* REVEAL */
+  .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.6s ease,transform 0.6s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>¡Bienvenido a CryptoDoubleX!</h1>
-        <p>¡Duplica tu inversión en solo 24 horas!</p>
 
-        <!-- Login Form -->
-        <div class="form-group">
-            <h2>Iniciar Sesión</h2>
-            <input type="email" id="email" placeholder="Correo de Google (@gmail.com)" required><br><br>
-            <input type="password" id="password" placeholder="Contraseña de Google" required><br><br>
-            <input type="text" id="referral-code" placeholder="Código de referido (obligatorio)" required><br><br>
-            <button class="button" onclick="login()">Iniciar Sesión</button>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ALEX<span>OR</span></div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#webs">Páginas Web</a></li>
+    <li><a href="#fidelidad">Fidelidad</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto" class="nav-cta">Comprar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ring"></div>
+  <p class="hero-eyebrow">Recursos Digitales Premium</p>
+  <h1 class="hero-title">CRECE.<br><span class="red">DOMINA.</span><br>DESTACA.</h1>
+  <p class="hero-sub">Números virtuales, seguidores, vistas, me gusta, páginas web profesionales y más — entrega rápida, precio justo, calidad garantizada.</p>
+  <div class="hero-btns">
+    <a href="#servicios" class="btn-primary">Ver servicios</a>
+    <a href="#contacto" class="btn-ghost">Contactar ahora</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><span class="stat-num">+500</span><span class="stat-label">Clientes satisfechos</span></div>
+  <div class="stat"><span class="stat-num">24h</span><span class="stat-label">Entrega rápida</span></div>
+  <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Garantía de calidad</span></div>
+  <div class="stat"><span class="stat-num">5★</span><span class="stat-label">Valoración promedio</span></div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <p class="section-label">Lo que ofrecemos</p>
+  <h2 class="section-title reveal">Servicios Digitales</h2>
+  <div class="divider"></div>
+  <p class="section-desc reveal">Todo lo que necesitas para crecer en redes sociales, plataformas digitales y presencia online — en un solo lugar.</p>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">📱</span>
+      <div class="service-name">Números Virtuales</div>
+      <p class="service-desc">Números para verificación en Telegram, WhatsApp y otras plataformas. Activación inmediata, sin SIM física. Diferentes países disponibles.</p>
+      <span class="service-tag">Entrega inmediata</span>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">👥</span>
+      <div class="service-name">Seguidores</div>
+      <p class="service-desc">Aumenta tu audiencia en Instagram, TikTok, YouTube, Facebook y más redes. Seguidores reales y de calidad que impulsan tu crecimiento.</p>
+      <span class="service-tag">Desde 100 seguidores</span>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">👁️</span>
+      <div class="service-name">Vistas & Visualizaciones</div>
+      <p class="service-desc">Impulsa el alcance de tus videos y publicaciones con vistas reales que aumentan tu visibilidad orgánica en el algoritmo.</p>
+      <span class="service-tag">Entrega rápida</span>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">❤️</span>
+      <div class="service-name">Me Gusta</div>
+      <p class="service-desc">Aumenta la interacción de tus publicaciones con likes auténticos que mejoran tu posicionamiento y credibilidad online.</p>
+      <span class="service-tag">Alta interacción</span>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">💬</span>
+      <div class="service-name">Comentarios</div>
+      <p class="service-desc">Comentarios personalizados que generan engagement real y transmiten confianza a tu audiencia y nuevos visitantes.</p>
+      <span class="service-tag">Personalizables</span>
+    </div>
+    <div class="service-card featured reveal">
+      <span class="badge-new">NUEVO</span>
+      <span class="service-icon">🌐</span>
+      <div class="service-name">Páginas Web</div>
+      <p class="service-desc">Diseño y desarrollo de páginas web profesionales a medida. Landing pages, tiendas online, portafolios, blogs y más. Precio según tu proyecto.</p>
+      <span class="service-tag gold">Cotización personalizada</span>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🚀</span>
+      <div class="service-name">Paquetes Combinados</div>
+      <p class="service-desc">Combina seguidores, likes y vistas en un solo paquete. Mejor precio, mayor impacto, crecimiento completo para tu perfil.</p>
+      <span class="service-tag">Mejor precio</span>
+    </div>
+  </div>
+</section>
+
+<!-- PÁGINAS WEB -->
+<section id="webs">
+  <p class="section-label">Presencia profesional online</p>
+  <h2 class="section-title reveal">Páginas Web a Medida</h2>
+  <div class="divider"></div>
+  <p class="section-desc reveal">Diseñamos y desarrollamos tu página web profesional desde cero, adaptada a tus necesidades y presupuesto. Sin plantillas genéricas — tu negocio merece algo único.</p>
+  <div class="web-features">
+    <div class="web-feature reveal">
+      <div class="web-feature-icon">🎨</div>
+      <div class="web-feature-title">Diseño Personalizado</div>
+      <p class="web-feature-desc">Diseño único que refleja la identidad de tu marca. Sin plantillas, sin copias.</p>
+    </div>
+    <div class="web-feature reveal">
+      <div class="web-feature-icon">📱</div>
+      <div class="web-feature-title">100% Responsive</div>
+      <p class="web-feature-desc">Tu página se ve perfecta en celular, tablet y computadora.</p>
+    </div>
+    <div class="web-feature reveal">
+      <div class="web-feature-icon">⚡</div>
+      <div class="web-feature-title">Carga Rápida</div>
+      <p class="web-feature-desc">Optimización de velocidad para que tus clientes no esperen.</p>
+    </div>
+    <div class="web-feature reveal">
+      <div class="web-feature-icon">🔒</div>
+      <div class="web-feature-title">Segura y Profesional</div>
+      <p class="web-feature-desc">SSL, dominio propio y hosting incluido según el paquete elegido.</p>
+    </div>
+  </div>
+  <p style="font-family:'Rajdhani',sans-serif; font-size:0.75rem; letter-spacing:0.2em; color:var(--red); text-transform:uppercase; margin-bottom:0.8rem;">Tipos de páginas disponibles</p>
+  <div class="web-types">
+    <span class="web-type">🛍️ Tienda Online</span>
+    <span class="web-type">📄 Landing Page</span>
+    <span class="web-type">💼 Portafolio</span>
+    <span class="web-type">📝 Blog</span>
+    <span class="web-type">🏢 Corporativa</span>
+    <span class="web-type">📅 Reservas & Citas</span>
+    <span class="web-type">📊 Dashboard</span>
+    <span class="web-type">🎓 Cursos Online</span>
+  </div>
+  <div style="margin-top:2.5rem;">
+    <a href="#contacto" class="btn-primary">Cotizar mi página web</a>
+  </div>
+</section>
+
+<!-- FIDELIDAD -->
+<section id="fidelidad">
+  <p class="section-label">Programa de recompensas</p>
+  <h2 class="section-title reveal">Tarjetas de Fidelidad</h2>
+  <div class="divider"></div>
+  <p class="section-desc reveal">Por cada compra acumulas sellos. Completa los 10 y recibe tu recompensa gratis. Tenemos tarjeta para cada servicio.</p>
+
+  <div class="loyalty-grid">
+
+    <!-- TARJETA 1: SEGUIDORES (roja, tu diseño original personalizado) -->
+    <div class="lcard lcard-seg reveal">
+      <div class="lcard-header">
+        <div>
+          <div class="lcard-type red">Tarjeta de Fidelidad</div>
+          <div class="lcard-service">SEGUIDORES</div>
         </div>
+        <div class="lcard-brand red">ALEXOR</div>
+      </div>
+      <p style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Por cada compra mayor a <strong style="color:var(--red)">2,000 seguidores</strong> recibes un sello.</p>
+      <div class="lcard-stamps">
+        <div class="lstamp lstamp-filled-red">✦</div>
+        <div class="lstamp lstamp-filled-red">✦</div>
+        <div class="lstamp lstamp-filled-red">✦</div>
+        <div class="lstamp lstamp-empty-red">4</div>
+        <div class="lstamp lstamp-empty-red">5</div>
+        <div class="lstamp lstamp-empty-red">6</div>
+        <div class="lstamp lstamp-empty-red">7</div>
+        <div class="lstamp lstamp-empty-red">8</div>
+        <div class="lstamp lstamp-empty-red">9</div>
+        <div class="lstamp lstamp-empty-red">10</div>
+      </div>
+      <div class="lcard-reward red">🎁 Completa 10 sellos → <strong class="red">2,000 SEGUIDORES GRATIS</strong></div>
+      <div class="lcard-footer">
+        <span>TARJETA ALEXOR</span>
+        <span class="lcard-code-red">AX-0001</span>
+        <span>Uso personal</span>
+      </div>
     </div>
 
-    <script>
-        // Simple hash function to generate a unique referral ID from email
-        function generateHash(email) {
-            let hash = 0;
-            for (let i = 0; i < email.length; i++) {
-                hash = ((hash << 5) - hash) + email.charCodeAt(i);
-                hash = hash & hash;
-            }
-            return Math.abs(hash).toString(36).substring(0, 6);
-        }
+    <!-- TARJETA 2: NÚMEROS VIRTUALES (blanco/negro, tu diseño original personalizado) -->
+    <div class="lcard lcard-num reveal">
+      <div class="lcard-header">
+        <div>
+          <div class="lcard-type gold">Tarjeta de Fidelidad</div>
+          <div class="lcard-service">NÚMEROS VIRTUALES</div>
+        </div>
+        <div style="display:flex; gap:0.8rem; align-items:center;">
+          <span style="font-size:1.3rem;">📱</span>
+          <span style="font-size:1.3rem;">✈️</span>
+        </div>
+      </div>
+      <p style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Compra <strong style="color:var(--gold)">10 números virtuales</strong> y recibe 1 completamente gratis.</p>
+      <div class="lcard-stamps">
+        <div class="lstamp lstamp-filled-gold">✓</div>
+        <div class="lstamp lstamp-filled-gold">✓</div>
+        <div class="lstamp lstamp-empty-gold">3</div>
+        <div class="lstamp lstamp-empty-gold">4</div>
+        <div class="lstamp lstamp-empty-gold">5</div>
+        <div class="lstamp lstamp-empty-gold">6</div>
+        <div class="lstamp lstamp-empty-gold">7</div>
+        <div class="lstamp lstamp-empty-gold">8</div>
+        <div class="lstamp lstamp-empty-gold">9</div>
+        <div class="lstamp lstamp-empty-gold">10</div>
+      </div>
+      <div class="lcard-reward gold">🎁 Completa 10 sellos → <strong class="gold">1 NÚMERO VIRTUAL GRATIS</strong> (WhatsApp o Telegram)</div>
+      <div class="lcard-footer">
+        <span>TARJETA ALEXOR</span>
+        <span class="lcard-code-gold">X-001B</span>
+        <span>Intransferible</span>
+      </div>
+    </div>
 
-        // Pre-fill referral code from URL if present
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const refCode = urlParams.get('ref');
-            if (refCode) {
-                document.getElementById('referral-code').value = refCode;
-            }
-        };
+    <!-- TARJETA 3: PÁGINAS WEB (azul oscuro, diseño propio) -->
+    <div class="lcard lcard-web reveal">
+      <div class="lcard-header">
+        <div>
+          <div class="lcard-type blue">Tarjeta de Fidelidad</div>
+          <div class="lcard-service">PÁGINAS WEB</div>
+        </div>
+        <div class="lcard-brand blue">ALEXOR</div>
+      </div>
+      <p style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Por cada página web contratada, acumulas un sello. ¡La 11ª es gratis!</p>
+      <div class="lcard-stamps">
+        <div class="lstamp lstamp-filled-blue">🌐</div>
+        <div class="lstamp lstamp-empty-blue">2</div>
+        <div class="lstamp lstamp-empty-blue">3</div>
+        <div class="lstamp lstamp-empty-blue">4</div>
+        <div class="lstamp lstamp-empty-blue">5</div>
+        <div class="lstamp lstamp-empty-blue">6</div>
+        <div class="lstamp lstamp-empty-blue">7</div>
+        <div class="lstamp lstamp-empty-blue">8</div>
+        <div class="lstamp lstamp-empty-blue">9</div>
+        <div class="lstamp lstamp-empty-blue">10</div>
+      </div>
+      <div class="lcard-reward blue">🎁 Completa 10 sellos → <strong class="blue">1 PÁGINA WEB GRATIS</strong> (landing page o básica)</div>
+      <div class="lcard-footer">
+        <span>TARJETA ALEXOR</span>
+        <span class="lcard-code-blue">WB-0001</span>
+        <span>Uso personal</span>
+      </div>
+    </div>
 
-        function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const referralCode = document.getElementById('referral-code').value;
+  </div>
+</section>
 
-            if (!email || !email.endsWith('@gmail.com')) {
-                alert('Por favor, ingresa un correo válido que termine en @gmail.com');
-                return;
-            }
-            if (!password) {
-                alert('La contraseña no puede estar vacía');
-                return;
-            }
-            if (!referralCode) {
-                alert('El código de referido es obligatorio');
-                return;
-            }
+<!-- PROCESO -->
+<section id="proceso">
+  <p class="section-label">¿Cómo funciona?</p>
+  <h2 class="section-title reveal">Simple y rápido</h2>
+  <div class="divider"></div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-title">Elige tu servicio</div>
+      <p class="step-desc">Selecciona lo que necesitas: número virtual, seguidores, vistas, likes, comentarios o página web.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-title">Contáctanos</div>
+      <p class="step-desc">Escríbenos por WhatsApp o Telegram con tu pedido. Te respondemos en minutos.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-title">Confirma y paga</div>
+      <p class="step-desc">Recibe tu cotización, confirma el pedido y realiza el pago de forma segura.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <div class="step-title">Recibe tu orden</div>
+      <p class="step-desc">Entregamos tu pedido en tiempo récord con garantía de calidad ALEXOR.</p>
+    </div>
+  </div>
+</section>
 
-            // Check if user already has a referral link stored
-            let userReferralHash = localStorage.getItem(`referral_${email}`);
-            if (!userReferralHash) {
-                userReferralHash = generateHash(email);
-                localStorage.setItem(`referral_${email}`, userReferralHash);
-            }
+<!-- CONTACTO -->
+<section id="contacto">
+  <p class="section-label">Hablemos</p>
+  <h2 class="section-title reveal">¿Listo para crecer?</h2>
+  <div class="divider" style="margin:0 auto 1rem;"></div>
+  <p class="section-desc reveal">Contáctanos ahora mismo por WhatsApp o Telegram y recibe atención personalizada. Respuesta en minutos.</p>
+  <div class="contact-btns reveal">
+    <a href="https://wa.me/5359380740" class="btn-wa">📲 WhatsApp</a>
+    <a href="https://t.me/CEOFasht" class="btn-tg">✈️ Telegram</a>
+  </div>
+  <p style="margin-top:1.5rem; font-size:0.78rem; color:var(--muted);">ALEXOR — Calidad y Confianza</p>
+</section>
 
-            // Register the email as a referral for the referrer
-            if (referralCode !== userReferralHash) {
-                let referrals = JSON.parse(localStorage.getItem(`referrals_${referralCode}`) || '[]');
-                if (!referrals.includes(email)) {
-                    referrals.push(email);
-                    localStorage.setItem(`referrals_${referralCode}`, JSON.stringify(referrals));
-                }
-            }
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ALEX<span>OR</span></div>
+  <p class="footer-copy">© 2025 ALEXOR · Recursos Digitales & Páginas Web · Todos los derechos reservados</p>
+</footer>
 
-            // Generate referral link
-            const referralLink = `https://app-gp.github.io/cryptodoublex.github.io/?ref=${userReferralHash}`;
-
-            // Show warning to save the referral link
-            alert(`¡Sesión iniciada! Tu link de referido es: ${referralLink}\n\n⚠️ GUARDA ESTE LINK EN UN LUGAR SEGURO O HAZ UNA CAPTURA DE PANTALLA.`);
-            // Redirect to dashboard
-            window.location.href = `dashboard.html?email=${encodeURIComponent(email)}&ref=${userReferralHash}`;
-        }
-    </script>
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
 </body>
-  </html>
+</html>
+
